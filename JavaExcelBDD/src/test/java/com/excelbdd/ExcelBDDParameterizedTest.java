@@ -1,6 +1,5 @@
 package com.excelbdd;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -13,35 +12,34 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class ExcelBDDParameterizedTest {
-	
-	Map<String, String> parameterMap;
-	
-	@Parameters
-    public static Collection<Object[]> prepareData() throws IOException
-    {
-    	String filepath = TestWizard.getExcelBDDStartPath("JavaExcelBDD") + "BDDExcel/ExcelBDD.xlsx";
-    	return Behavior.getExampleCollection(filepath, "SpecificationByExample", 1, 'F');
+
+    Map<String, String> mapParams;
+
+    @Parameters
+    public static Collection<Object[]> prepareData() throws IOException {
+        String filepath = TestWizard.getExcelBDDStartPath("JavaExcelBDD") + "BDDExcel/ExcelBDD.xlsx";
+        return Behavior.getExampleCollection(filepath, "SpecificationByExample", 1);
     }
-	
-	public ExcelBDDParameterizedTest(Map<String, String> map){
-		this.parameterMap = map;
-	}
 
-	@Test
-	public void testZMExcelParameterizedTest() {
-		
-		System.out.println("Header " + parameterMap.get("Header"));
-		System.out.println("SheetName " + parameterMap.get("SheetName"));
-		System.out.println("HeaderRow " + parameterMap.get("HeaderRow"));
+    public ExcelBDDParameterizedTest(Map<String, String> map) {
+        this.mapParams = map;
+    }
 
-		System.out.println(parameterMap.get("MaxBlankThreshold"));
-		System.out.println(parameterMap.get("HeaderMatcher"));
-		System.out.println(parameterMap.get("ParameterCount"));		
-		System.out.println("ParameterNameColumn " + parameterMap.get("ParameterNameColumn"));
-		
-		assertEquals("Scenario1", parameterMap.get("Header1Name"));
-		assertEquals("V1.2", parameterMap.get("ParamName1InSet2Value"));
-		assertEquals("V2.2", parameterMap.get("ParamName2InSet2Value"));
-		assertEquals("", parameterMap.get("ParamName3Value"));
-	}
+    @Test
+    public void testZMExcelParameterizedTest() {
+
+        System.out.println("Header " + mapParams.get("Header"));
+        System.out.println("SheetName " + mapParams.get("SheetName"));
+        System.out.println("HeaderRow " + mapParams.get("HeaderRow"));
+
+        System.out.println(mapParams.get("MaxBlankThreshold"));
+        System.out.println(mapParams.get("HeaderMatcher"));
+        System.out.println(mapParams.get("ParameterCount"));
+        System.out.println("ParameterNameColumn " + mapParams.get("ParameterNameColumn"));
+
+        assertEquals("Scenario1", mapParams.get("Header1Name"));
+        assertEquals("V1.2", mapParams.get("ParamName1InSet2Value"));
+        assertEquals("V2.2", mapParams.get("ParamName2InSet2Value"));
+        assertEquals("", mapParams.get("ParamName3Value"));
+    }
 }

@@ -4,40 +4,40 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- '*'
+  - '*'
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'JavaExcelBDD/pom.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'test'
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'JavaExcelBDD/pom.xml'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'test'
 
-# Publish Test Results
-# Publish test results to Azure Pipelines
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-    testResultsFiles: '**/TEST-*.xml' 
-    searchFolder: 'JavaExcelBDD' # Optional
-    #mergeTestResults: false # Optional
-    #failTaskOnFailedTests: false # Optional
-    #testRunTitle: # Optional
-    #buildPlatform: # Optional
-    #buildConfiguration: # Optional
-    #publishRunAttachments: true # Optional
+  # Publish Test Results
+  # Publish test results to Azure Pipelines
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+      testResultsFiles: '**/TEST-*.xml'
+      searchFolder: 'JavaExcelBDD' # Optional
+      #mergeTestResults: false # Optional
+      #failTaskOnFailedTests: false # Optional
+      #testRunTitle: # Optional
+      #buildPlatform: # Optional
+      #buildConfiguration: # Optional
+      #publishRunAttachments: true # Optional
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    summaryFileLocation: "**/jacoco.xml"
-    # reportDirectory: 'PowerShellExcelBDD'
-    pathToSources: 'JavaExcelBDD/src'
-    failIfCoverageEmpty: true
-  displayName: "Publish Test Code Coverage"
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      summaryFileLocation: "**/jacoco.xml"
+      # reportDirectory: 'PowerShellExcelBDD'
+      pathToSources: 'JavaExcelBDD/src'
+      failIfCoverageEmpty: true
+    displayName: "Publish Test Code Coverage"
