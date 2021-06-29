@@ -31,18 +31,18 @@ public class Sheet {
         return getExamples(headerRow(), headerMatcher, headerUnmatcher);
     }
 
-    public List<Map<String, String>> getExamples(int stepHeaderRowNumber, String headerMatcher, String headerUnmatcher) throws IOException {
+    public List<Map<String, String>> getExamples(int parameterRowNumber, String headerMatcher, String headerUnmatcher) throws IOException {
         // poi get row from 0, so 1st headerRow is at 0
         // by default, actualHeaderRow is below
-        int actualHeaderRow = stepHeaderRowNumber - 1;
-        int actualParameterStartRow = stepHeaderRowNumber;
+        int actualHeaderRow = parameterRowNumber - 1;
+        int actualParameterStartRow = parameterRowNumber;
         int columnStep = 1;
         if (TESTRESULT.equals(rowType())) {
             // because of input/expected/testresult row, the below -2
-            actualParameterStartRow = stepHeaderRowNumber + 1;
+            actualParameterStartRow = parameterRowNumber + 1;
             columnStep = 3;
         } else if (EXPECTED.equals(rowType())) {
-            actualParameterStartRow = stepHeaderRowNumber + 1;
+            actualParameterStartRow = parameterRowNumber + 1;
             columnStep = 2;
         }
         ArrayList<Map<String, String>> listTestSet = new ArrayList<>();
