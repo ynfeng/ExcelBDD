@@ -11,9 +11,5 @@ s
 Csrc/test/java/com/excelbdd/SpecificationByExample/FeatureSteps.java,3/4/34a7382085b1925ff261a4077ec988aaeae13974
 e
 5src/test/java/com/excelbdd/ExcelBDDExceptionTest.java,f/9/f9a83e62e6ae84820e1006bf66e14c9af25e6747
-i
-9src/test/java/com/excelbdd/ExcelBDDParameterizedTest.java,5/9/59851a3c46e52cf57bfffd8085127e8b6112d59e
 \
 ,src/test/java/com/excelbdd/BehaviorTest.java,0/0/00c547b00a3a6494f6a957892b35aec8e1057e4a
-Z
-*src/main/java/com/excelbdd/TestWizard.java,9/0/90c5d27f946deb415b78d1014a450fcbebfe7d8b

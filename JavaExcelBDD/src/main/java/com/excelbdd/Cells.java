@@ -21,8 +21,8 @@ public class Cells {
         return cells.get(index);
     }
 
-    private int getHeaderRowNumber(Cell cell) {
-        if (hasInputCell(cell.colIdx)) {
+    private int getHeaderRowNumber(Cell parameterNameCell) {
+        if (hasInputCell(parameterNameCell.colIdx)) {
             return rowNum;
         } else {
             return rowNum + 1;
@@ -37,10 +37,10 @@ public class Cells {
         return cells.get(colIdx + 3).isTestResultCell();
     }
 
-    private String rowType(Cell cell) {
-        if (hasInputCell(cell.colIdx) && hasTestResultCell(cell.colIdx)) {
+    private String rowType(Cell parameterNameCell) {
+        if (hasInputCell(parameterNameCell.colIdx) && hasTestResultCell(parameterNameCell.colIdx)) {
             return TESTRESULT;
-        } else if (hasInputCell(cell.colIdx)) {
+        } else if (hasInputCell(parameterNameCell.colIdx)) {
             return EXPECTED;
         } else {
             return SIMPLE;
