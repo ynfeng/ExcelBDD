@@ -34,12 +34,4 @@ public class Cell {
     public boolean isTestResultCell() {
         return stringValue().equals("Test Result");
     }
-
-    boolean hasInputCell(Cells cells) {
-        return cells.get(colIdx + 1).isInputCell();
-    }
-
-    boolean hasTestResultCell(Cells cells) {
-        return cells.get(colIdx + 3).isTestResultCell();
-    }
 }

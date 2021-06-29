@@ -22,17 +22,25 @@ public class Cells {
     }
 
     private int getHeaderRowNumber(Cell cell) {
-        if (cell.hasInputCell(this)) {
+        if (hasInputCell(cell.colIdx)) {
             return rowNum;
         } else {
             return rowNum + 1;
         }
     }
 
+    boolean hasInputCell(int colIdx) {
+        return cells.get(colIdx + 1).isInputCell();
+    }
+
+    boolean hasTestResultCell(int colIdx) {
+        return cells.get(colIdx + 3).isTestResultCell();
+    }
+
     private String rowType(Cell cell) {
-        if (cell.hasInputCell(this) && cell.hasTestResultCell(this)) {
+        if (hasInputCell(cell.colIdx) && hasTestResultCell(cell.colIdx)) {
             return TESTRESULT;
-        } else if (cell.hasInputCell(this)) {
+        } else if (hasInputCell(cell.colIdx)) {
             return EXPECTED;
         } else {
             return SIMPLE;
