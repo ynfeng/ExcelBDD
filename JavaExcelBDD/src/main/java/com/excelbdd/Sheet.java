@@ -14,23 +14,21 @@ public class Sheet {
     private static final String TESTRESULT = "TESTRESULT";
     private static final String EXPECTED = "EXPECTED";
 
-    public final XSSFSheet xssfSheet;
-    public int headerRow;
-    public char parameterNameColumn;
-    public String columnType;
+    private final XSSFSheet xssfSheet;
+    private String columnType;
     public Rows rows = new Rows();
 
     public Sheet(XSSFSheet xssfSheet) {
         this.xssfSheet = xssfSheet;
         rows.loadRows(xssfSheet);
-
-        headerRow = rows.headerRowNumber();
-        parameterNameColumn = rows.parameterNameColumnName();
-        columnType = rows.rowType();
     }
 
     public void close() throws IOException {
         xssfSheet.getWorkbook().close();
+    }
+
+    public List<Map<String, String>> getExamples(String headerMatcher, String headerUnmatcher) throws IOException {
+        return getExamples(headerRow(), headerMatcher, headerUnmatcher);
     }
 
     public List<Map<String, String>> getExamples(int headerRow, String headerMatcher, String headerUnmatcher) throws IOException {
@@ -39,17 +37,17 @@ public class Sheet {
         int actualHeaderRow = headerRow - 1;
         int actualParameterStartRow = headerRow;
         int columnStep = 1;
-        if (TESTRESULT.equals(columnType)) {
+        if (TESTRESULT.equals(rowType())) {
             // because of input/expected/testresult row, the below -2
             actualParameterStartRow = headerRow + 1;
             columnStep = 3;
-        } else if (EXPECTED.equals(columnType)) {
+        } else if (EXPECTED.equals(rowType())) {
             actualParameterStartRow = headerRow + 1;
             columnStep = 2;
         }
         ArrayList<Map<String, String>> listTestSet = new ArrayList<>();
         // poi get column from 0, so Column A's Num is 0, 65 is A's ASCII code
-        int parameterNameColumnNum = parameterNameColumn - 65;
+        int parameterNameColumnNum = parameterNameColumn() - 65;
 
         XSSFRow rowHeader = xssfSheet.getRow(actualHeaderRow);
         HashMap<Integer, Integer> mapTestSetHeader = getHeaderMap(headerMatcher, headerUnmatcher, listTestSet,
@@ -154,5 +152,17 @@ public class Sheet {
         } else {
             mapTestSet.put(strParameterName, cellCurrent.getRawValue());
         }
+    }
+
+    public int headerRow() {
+        return rows.headerRowNumber();
+    }
+
+    public char parameterNameColumn() {
+        return rows.parameterNameColumnName();
+    }
+
+    public String rowType() {
+        return rows.rowType();
     }
 }

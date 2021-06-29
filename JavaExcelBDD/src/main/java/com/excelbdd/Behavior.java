@@ -28,7 +28,7 @@ public class Behavior {
         Sheet sheet = excel.openSheet(worksheetName);
 
         try {
-            return sheet.getExamples(sheet.headerRow, headerMatcher, headerUnmatcher);
+            return sheet.getExamples(headerMatcher, headerUnmatcher);
         } finally {
             sheet.close();
             excel.close();
