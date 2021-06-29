@@ -15,7 +15,6 @@ public class Sheet {
     private static final String EXPECTED = "EXPECTED";
 
     private final XSSFSheet xssfSheet;
-    private String columnType;
     public Rows rows = new Rows();
 
     public Sheet(XSSFSheet xssfSheet) {
