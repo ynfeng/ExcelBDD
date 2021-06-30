@@ -7,9 +7,6 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 
 public class Cells {
-    private static final String SIMPLE = "SIMPLE";
-    private static final String TESTRESULT = "TESTRESULT";
-    private static final String EXPECTED = "EXPECTED";
     private final List<Cell> cells = Lists.newArrayList();
     private final int rowNum;
 
@@ -37,13 +34,13 @@ public class Cells {
         return cells.get(colIdx + 3).isTestResultCell();
     }
 
-    private String rowType(Cell parameterNameCell) {
+    private RowType rowType(Cell parameterNameCell) {
         if (hasInputCell(parameterNameCell.colIdx) && hasTestResultCell(parameterNameCell.colIdx)) {
-            return TESTRESULT;
+            return new TestResult();
         } else if (hasInputCell(parameterNameCell.colIdx)) {
-            return EXPECTED;
+            return new Expected();
         } else {
-            return SIMPLE;
+            return new Simple();
         }
     }
 
@@ -61,8 +58,8 @@ public class Cells {
         return findParameterNameCell().map(Cell::parameterNameColumn).orElse('@');
     }
 
-    public String rowType() {
-        return findParameterNameCell().map(this::rowType).orElse(null);
+    public RowType rowType() {
+        return findParameterNameCell().map(this::rowType).orElse(RowType.NULL);
     }
 
     void loadCells(XSSFRow xssfRow) {

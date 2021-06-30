@@ -18,7 +18,7 @@ public class Row {
         return cells.parameterNameColumnName();
     }
 
-    public String rowType() {
+    public RowType rowType() {
         return cells.rowType();
     }
 }

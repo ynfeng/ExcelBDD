@@ -11,9 +11,6 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 public class Sheet {
-    private static final String TESTRESULT = "TESTRESULT";
-    private static final String EXPECTED = "EXPECTED";
-
     private final XSSFSheet xssfSheet;
     public Rows rows = new Rows();
 
@@ -33,17 +30,11 @@ public class Sheet {
     public List<Map<String, String>> getExamples(int parameterRowNumber, String headerMatcher, String headerUnmatcher) throws IOException {
         // poi get row from 0, so 1st headerRow is at 0
         // by default, actualHeaderRow is below
+        RowType rowType = rowType();
         int actualHeaderRow = parameterRowNumber - 1;
-        int actualParameterStartRow = parameterRowNumber;
-        int columnStep = 1;
-        if (TESTRESULT.equals(rowType())) {
-            // because of input/expected/testresult row, the below -2
-            actualParameterStartRow = parameterRowNumber + 1;
-            columnStep = 3;
-        } else if (EXPECTED.equals(rowType())) {
-            actualParameterStartRow = parameterRowNumber + 1;
-            columnStep = 2;
-        }
+        int actualParameterStartRow = rowType.actualParameterStartRow(parameterRowNumber);
+        int columnStep = rowType.columnStep();
+
         ArrayList<Map<String, String>> listTestSet = new ArrayList<>();
         // poi get column from 0, so Column A's Num is 0, 65 is A's ASCII code
         int parameterNameColumnNum = parameterNameColumn() - 65;
@@ -161,7 +152,7 @@ public class Sheet {
         return rows.parameterNameColumnName();
     }
 
-    public String rowType() {
+    public RowType rowType() {
         return rows.rowType();
     }
 }

@@ -80,12 +80,12 @@ public class Behavior {
             TestWizard.NEVER_MATCHED_STRING, TESTRESULT);
     }
 
-    public static List<Map<String, String>> getExamples(String excelPath, String worksheetName, int headerRow, String headerMatcher, String headerUnmatcher, String columnType) throws IOException {
+    public static List<Map<String, String>> getExamples(String excelPath, String worksheetName, int parameterHeadRow, String headerMatcher, String headerUnmatcher, String columnType) throws IOException {
         Excel excel = Excel.open(excelPath);
         Sheet sheet = excel.openSheet(worksheetName);
 
         try {
-            return sheet.getExamples(headerRow, headerMatcher, headerUnmatcher);
+            return sheet.getExamples(parameterHeadRow, headerMatcher, headerUnmatcher);
         } finally {
             sheet.close();
             excel.close();

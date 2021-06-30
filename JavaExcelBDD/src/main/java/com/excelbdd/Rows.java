@@ -1,7 +1,6 @@
 package com.excelbdd;
 
 import java.util.List;
-import java.util.Objects;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -36,10 +35,10 @@ public class Rows {
             .orElseThrow(() -> new IllegalStateException("parameter name column not found."));
     }
 
-    public String rowType() {
+    public RowType rowType() {
         return rows.stream()
             .map(Row::rowType)
-            .filter(Objects::nonNull)
+            .filter(rowType -> rowType != RowType.NULL)
             .findAny()
             .orElseThrow(() -> new IllegalStateException("has not row type."));
     }
